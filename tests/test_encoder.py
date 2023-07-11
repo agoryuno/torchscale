@@ -34,6 +34,10 @@ def test_encoder(args):
 
 
 def test_embeds():
+    """
+    Add an embedding layer through the constructor
+    and pass `src_tokens` into `forward()`.
+    """
     from torch.nn import Embedding
     import numpy as np
     config = EncoderConfig(
