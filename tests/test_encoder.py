@@ -38,13 +38,13 @@ def test_embeds():
     Add an embedding layer through the constructor
     and pass `src_tokens` into `forward()`.
     """
-    from torch.nn import Embedding
+    from torchscale.component.embedding import TextEmbedding
     import numpy as np
     config = EncoderConfig(
                            vocab_size=64000, 
                            encoder_embed_dim=512,
                            encoder_attention_heads=8,
                            )
-    model = Encoder(config, embed_tokens=Embedding(config.vocab_size, config.encoder_embed_dim))
+    model = Encoder(config, embed_tokens=TextEmbedding(config.vocab_size, config.encoder_embed_dim))
     src_tokens = torch.from_numpy(np.random.randint(1, config.vocab_size, 16)).unsqueeze(0)
-    model(src_tokens=src_tokens)
+    model(src_tokens)

@@ -36,3 +36,21 @@ def test_decoder(args):
         token_embeddings=token_embeddings,
         features_only=True,
     )
+
+
+def test_embeds():
+    """
+    Add an embedding layer through the constructor
+    and pass `src_tokens` into `forward()`.
+    """
+    from torchscale.component.embedding import TextEmbedding
+    import numpy as np
+    config = DecoderConfig(
+                           vocab_size=64000, 
+                           encoder_embed_dim=512,
+                           encoder_attention_heads=8,
+                           )
+    model = Decoder(config, embed_tokens=TextEmbedding(config.vocab_size, config.decoder_embed_dim))
+    src_tokens = torch.from_numpy(np.random.randint(1, config.vocab_size, 16)).unsqueeze(0)
+    model(src_tokens)
+
