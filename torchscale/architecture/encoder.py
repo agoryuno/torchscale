@@ -359,7 +359,9 @@ class Encoder(nn.Module):
             assert self.args.multiway
             self.apply(set_split_position(multiway_split_position))
 
-        x, encoder_embedding = self.forward_embedding(src_tokens, token_embeddings, positions)
+        x, encoder_embedding = self.forward_embedding(src_tokens, 
+                                                      token_embeddings, 
+                                                      positions)
         x = x * (1 - encoder_padding_mask.unsqueeze(-1).type_as(x))
 
         encoder_states = []
