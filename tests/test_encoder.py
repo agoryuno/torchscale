@@ -32,12 +32,15 @@ def test_encoder(args):
     token_embeddings = torch.rand(2, 10, config.encoder_embed_dim)
     model(src_tokens=None, token_embeddings=token_embeddings)
 
+
 def test_embeds():
     from torch.nn import Embedding
     import numpy as np
-    config = EncoderConfig(vocab_size=64000, encoder_embed_dim=512)
-    model = Encoder(config, embed_tokens=Embedding(64000, 512))
-    src_tokens = torch.from_numpy(np.random.randint(0, 64000, 20))
-    src_tokens = src_tokens.unsqueeze(0)
-    print (src_tokens.shape)
+    config = EncoderConfig(
+                           vocab_size=64000, 
+                           encoder_embed_dim=512,
+                           encoder_attention_heads=8,
+                           )
+    model = Encoder(config, embed_tokens=Embedding(config.vocab_size, config.encoder_embed_dim))
+    src_tokens = torch.from_numpy(np.random.randint(1, config.vocab_size, 16)).unsqueeze(0)
     model(src_tokens=src_tokens)
